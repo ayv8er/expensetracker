@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
   const [userInput, setUserInput] = useState({
     title: "",
     amount: "",
@@ -30,11 +30,15 @@ const ExpenseForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const expenseData = {
+      id: (Math.random() * Math.random()).toString(),
       title: userInput.title,
       amount: userInput.amount,
       date: new Date(userInput.date),
     };
     console.log(expenseData);
+    props.setExpenses((prevState) => {
+      return [...prevState, expenseData];
+    });
     setUserInput({
       title: "",
       amount: "",
