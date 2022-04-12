@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-import Expenses from "./components/Expenses/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
+import Chart from "./components/Chart/ChartBar";
+import Expenses from "./components/Expenses/Expenses";
 
 const App = () => {
   const [expenses, setExpenses] = useState([
@@ -29,6 +30,7 @@ const App = () => {
   return (
     <div>
       <NewExpense setExpenses={setExpenses} />
+      <Chart />
       <Expenses items={expenses} />
     </div>
   );
