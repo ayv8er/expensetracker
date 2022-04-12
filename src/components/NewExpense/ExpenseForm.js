@@ -37,7 +37,7 @@ const ExpenseForm = (props) => {
       date: new Date(userInput.date),
     };
     setExpenses((prevState) => {
-      return [...prevState, expenseData];
+      return [expenseData, ...prevState];
     });
     setUserInput({
       title: "",
