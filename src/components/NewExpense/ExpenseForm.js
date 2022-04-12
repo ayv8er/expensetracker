@@ -37,7 +37,7 @@ const ExpenseForm = (props) => {
     const expenseData = {
       id: (Math.random() * Math.random()).toString(),
       title: userInput.title,
-      amount: userInput.amount,
+      amount: +userInput.amount,
       date: new Date(userInput.date),
     };
     setExpenses((prevState) => {

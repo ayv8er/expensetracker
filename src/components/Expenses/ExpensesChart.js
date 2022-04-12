@@ -1,22 +1,24 @@
 import Chart from "../Chart/Chart";
 
 const ExpensesChart = (props) => {
+  const { filteredItems } = props;
+
   const chartDataPoints = [
-    { label: "January", value: 0 },
-    { label: "February", value: 0 },
-    { label: "March", value: 0 },
-    { label: "April", value: 0 },
-    { label: "May", value: 0 },
-    { label: "June", value: 0 },
-    { label: "July", value: 0 },
-    { label: "August", value: 0 },
-    { label: "September", value: 0 },
-    { label: "October", value: 0 },
-    { label: "November", value: 0 },
-    { label: "December", value: 0 },
+    { month: "Jan", value: 0 },
+    { month: "Feb", value: 0 },
+    { month: "Mar", value: 0 },
+    { month: "Apr", value: 0 },
+    { month: "May", value: 0 },
+    { month: "Jun", value: 0 },
+    { month: "Jul", value: 0 },
+    { month: "Aug", value: 0 },
+    { month: "Sep", value: 0 },
+    { month: "Oct", value: 0 },
+    { month: "Nov", value: 0 },
+    { month: "Dec", value: 0 },
   ];
 
-  for (const expense in props.expenses) {
+  for (const expense of filteredItems()) {
     const expenseMonth = expense.date.getMonth();
     chartDataPoints[expenseMonth].value += expense.amount;
   }
