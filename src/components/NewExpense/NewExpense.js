@@ -3,9 +3,10 @@ import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
 const NewExpense = (props) => {
+  const { setExpenses } = props;
   return (
     <div className="new-expense">
-      <ExpenseForm setExpenses={props.setExpenses} />
+      <ExpenseForm setExpenses={setExpenses} />
     </div>
   );
 };

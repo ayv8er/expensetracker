@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
+  const { setExpenses } = props;
   const [userInput, setUserInput] = useState({
     title: "",
     amount: "",
@@ -35,9 +36,8 @@ const ExpenseForm = (props) => {
       amount: userInput.amount,
       date: new Date(userInput.date),
     };
-    console.log(expenseData);
-    props.setExpenses((prevState) => {
-      return [...prevState, expenseData];
+    setExpenses((prevState) => {
+      return [expenseData, ...prevState];
     });
     setUserInput({
       title: "",
