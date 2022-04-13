@@ -4,6 +4,11 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
   const { setExpenses, setIsShownForm } = props;
+  const [isValid, setIsValid] = useState({
+    title: true,
+    amount: true,
+    date: true,
+  });
   const [userInput, setUserInput] = useState({
     title: "",
     amount: "",
@@ -33,21 +38,42 @@ const ExpenseForm = (props) => {
   };
 
   const handleSubmit = (event) => {
+    let isSubmittable = true;
     event.preventDefault();
-    const expenseData = {
-      id: (Math.random() * Math.random()).toString(),
-      title: userInput.title,
-      amount: +userInput.amount,
-      date: new Date(userInput.date),
-    };
-    setExpenses((prevState) => {
-      return [expenseData, ...prevState];
-    });
-    setUserInput({
-      title: "",
-      amount: "",
-      date: "",
-    });
+    if (userInput.title.trim().length === 0) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, title: false };
+      });
+    }
+    if (userInput.amount.trim().length === 0) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, amount: false };
+      });
+    }
+    if (!userInput.date) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, date: false };
+      });
+    }
+    if (isSubmittable) {
+      const expenseData = {
+        id: (Math.random() * Math.random()).toString(),
+        title: userInput.title,
+        amount: +userInput.amount,
+        date: new Date(userInput.date),
+      };
+      setExpenses((prevState) => {
+        return [expenseData, ...prevState];
+      });
+      setUserInput({
+        title: "",
+        amount: "",
+        date: "",
+      });
+    }
   };
 
   return (
