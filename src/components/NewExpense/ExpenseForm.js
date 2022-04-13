@@ -16,18 +16,27 @@ const ExpenseForm = (props) => {
   });
 
   const handleTitleChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, title: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, title: event.target.value };
     });
   };
 
   const handleAmountChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, amount: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, amount: event.target.value };
     });
   };
 
   const handleDateChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, date: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, date: event.target.value };
     });
@@ -79,7 +88,9 @@ const ExpenseForm = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="new-expense__controls">
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.title ? "" : "invalid"}`}
+        >
           <label>Title</label>
           <input
             type="text"
@@ -87,7 +98,9 @@ const ExpenseForm = (props) => {
             onChange={handleTitleChange}
           />
         </div>
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.amount ? "" : "invalid"}`}
+        >
           <label>Amount</label>
           <input
             type="number"
@@ -97,7 +110,9 @@ const ExpenseForm = (props) => {
             onChange={handleAmountChange}
           />
         </div>
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.date ? "" : "invalid"}`}
+        >
           <label>Date</label>
           <input
             type="date"
