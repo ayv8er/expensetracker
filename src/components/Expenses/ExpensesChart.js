@@ -18,7 +18,7 @@ const ExpensesChart = (props) => {
     { month: "Dec", value: 0 },
   ];
 
-  if (filteredItems.length === 0) {
+  if (filteredItems().length === 0) {
     return;
   } else {
     for (const expense of filteredItems()) {
