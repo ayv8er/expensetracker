@@ -4,6 +4,11 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
   const { setExpenses, setIsShownForm } = props;
+  const [isValid, setIsValid] = useState({
+    title: true,
+    amount: true,
+    date: true,
+  });
   const [userInput, setUserInput] = useState({
     title: "",
     amount: "",
@@ -11,18 +16,27 @@ const ExpenseForm = (props) => {
   });
 
   const handleTitleChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, title: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, title: event.target.value };
     });
   };
 
   const handleAmountChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, amount: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, amount: event.target.value };
     });
   };
 
   const handleDateChange = (event) => {
+    setIsValid((prevState) => {
+      return { ...prevState, date: true };
+    });
     setUserInput((prevState) => {
       return { ...prevState, date: event.target.value };
     });
@@ -33,27 +47,50 @@ const ExpenseForm = (props) => {
   };
 
   const handleSubmit = (event) => {
+    let isSubmittable = true;
     event.preventDefault();
-    const expenseData = {
-      id: (Math.random() * Math.random()).toString(),
-      title: userInput.title,
-      amount: +userInput.amount,
-      date: new Date(userInput.date),
-    };
-    setExpenses((prevState) => {
-      return [expenseData, ...prevState];
-    });
-    setUserInput({
-      title: "",
-      amount: "",
-      date: "",
-    });
+    if (userInput.title.trim().length === 0) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, title: false };
+      });
+    }
+    if (userInput.amount.trim().length === 0) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, amount: false };
+      });
+    }
+    if (!userInput.date) {
+      isSubmittable = false;
+      setIsValid((prevState) => {
+        return { ...prevState, date: false };
+      });
+    }
+    if (isSubmittable) {
+      const expenseData = {
+        id: (Math.random() * Math.random()).toString(),
+        title: userInput.title,
+        amount: +userInput.amount,
+        date: new Date(userInput.date),
+      };
+      setExpenses((prevState) => {
+        return [expenseData, ...prevState];
+      });
+      setUserInput({
+        title: "",
+        amount: "",
+        date: "",
+      });
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="new-expense__controls">
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.title ? "" : "invalid"}`}
+        >
           <label>Title</label>
           <input
             type="text"
@@ -61,7 +98,9 @@ const ExpenseForm = (props) => {
             onChange={handleTitleChange}
           />
         </div>
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.amount ? "" : "invalid"}`}
+        >
           <label>Amount</label>
           <input
             type="number"
@@ -71,7 +110,9 @@ const ExpenseForm = (props) => {
             onChange={handleAmountChange}
           />
         </div>
-        <div className="new-expense__control">
+        <div
+          className={`new-expense__control ${isValid.date ? "" : "invalid"}`}
+        >
           <label>Date</label>
           <input
             type="date"
