@@ -59,7 +59,7 @@ const App = () => {
   }
 
   return (
-    <div>
+    <>
       {errorMsg.errorToggle && (
         <ErrorModal
           modalTitle={modalTitle}
@@ -69,7 +69,7 @@ const App = () => {
       )}
       <NewExpense setExpenses={setExpenses} setErrorMsg={setErrorMsg} />
       <Expenses items={expenses} />
-    </div>
+    </>
   );
 };
 

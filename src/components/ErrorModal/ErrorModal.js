@@ -1,3 +1,5 @@
+import ReactDOM from "react-dom";
+
 import Card from "../UI/Card";
 
 import "./ErrorModal.css";
@@ -15,9 +17,12 @@ const ErrorModal = (props) => {
     });
   };
 
-  return (
-    <div>
-      <div className="backdrop" onClick={handleClick}></div>
+  const Backdrop = (props) => {
+    return <div className="backdrop" onClick={handleClick}></div>;
+  };
+
+  const ModalOverlay = (props) => {
+    return (
       <Card className="modal">
         <header className="header">
           <h2>{modalTitle}</h2>
@@ -31,7 +36,24 @@ const ErrorModal = (props) => {
           </button>
         </footer>
       </Card>
-    </div>
+    );
+  };
+
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <Backdrop onClick={handleClick} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay
+          modalTitle={modalTitle}
+          modalMessage={modalMessage}
+          onClick={handleClick}
+        />,
+        document.getElementById("overlay-root")
+      )}
+    </>
   );
 };
 
