@@ -5,7 +5,7 @@ import ExpenseForm from "./ExpenseForm";
 import "./NewExpense.css";
 
 const NewExpense = (props) => {
-  const { setExpenses } = props;
+  const { setExpenses, setErrorMsg } = props;
   const [isShownForm, setIsShownForm] = useState(false);
 
   const handleClick = () => {
@@ -19,6 +19,7 @@ const NewExpense = (props) => {
         <ExpenseForm
           setExpenses={setExpenses}
           setIsShownForm={setIsShownForm}
+          setErrorMsg={setErrorMsg}
         />
       )}
     </div>
