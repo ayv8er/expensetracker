@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
-  const { setExpenses, setIsShownForm } = props;
+  const { setExpenses, setIsShownForm, setErrorMsg } = props;
   const [isValid, setIsValid] = useState({
     title: true,
     amount: true,
@@ -51,18 +51,39 @@ const ExpenseForm = (props) => {
     event.preventDefault();
     if (userInput.title.trim().length === 0) {
       isSubmittable = false;
+      setErrorMsg((prevState) => {
+        return {
+          ...prevState,
+          title: true,
+          errorToggle: true,
+        };
+      });
       setIsValid((prevState) => {
         return { ...prevState, title: false };
       });
     }
     if (userInput.amount.trim().length === 0) {
       isSubmittable = false;
+      setErrorMsg((prevState) => {
+        return {
+          ...prevState,
+          amount: true,
+          errorToggle: true,
+        };
+      });
       setIsValid((prevState) => {
         return { ...prevState, amount: false };
       });
     }
     if (!userInput.date) {
       isSubmittable = false;
+      setErrorMsg((prevState) => {
+        return {
+          ...prevState,
+          date: true,
+          errorToggle: true,
+        };
+      });
       setIsValid((prevState) => {
         return { ...prevState, date: false };
       });
